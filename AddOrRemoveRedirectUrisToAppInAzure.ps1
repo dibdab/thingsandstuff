@@ -11,8 +11,8 @@ $objectId = ""
 $newRedirectUri = "https://newredirecturl.com"
 
 # Authenticate to Azure AD
-$secpasswd = ConvertTo-SecureString $clientSecret -AsPlainText -Force
-$credential = New-Object System.Management.Automation.PSCredential($clientId, $secpasswd)
+$securePassword = ConvertTo-SecureString $clientSecret -AsPlainText -Force
+$credential = New-Object System.Management.Automation.PSCredential($clientId, $securePassword)
 
 # Connect to Azure AD
 Connect-AzAccount -ServicePrincipal -Credential $credential -TenantId $tenantId
