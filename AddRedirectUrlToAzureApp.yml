@@ -1,0 +1,26 @@
+# Tasks for adding and removing a reply url to an app registered in an azure tenant
+- task: AzureCLI@2
+  displayName: "Add Redirect URLs"
+  name: "addRedirectUrls"
+  inputs:
+    azureSubscription: "$(azureSubscription)"
+    scriptType: pscore
+    scriptLocation: inlineScript
+    inlineScript: |
+      $output = az ad app show --id $(evaUiApplicationId)
+      echo $output | convertfrom-json
+      # Add Redirect URL to App registered in B2C tenant for eVA UI
+      az ad app update --id $(evaUiApplicationId) --add replyUrls '$(bicepDeploymentOutputs.evaUiHostName)'
+      $output = az ad app show --id $(evaUiApplicationId)
+      echo $output | convertfrom-json
+- task: AzureCLI@2
+  displayName: "Add Redirect URLs"
+  name: "addRedirectUrls"
+  inputs:
+    azureSubscription: "$(azureSubscription)"
+    scriptType: pscore
+    scriptLocation: inlineScript
+    inlineScript: |
+      az ad app update --id $(evaUiApplicationId) --remove replyUrls '$(evaUiHostName)'
+      $output = az ad app show --id $(evaUiApplicationId)
+      echo $output | convertfrom-json
