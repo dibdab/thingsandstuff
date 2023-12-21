@@ -1,0 +1,3 @@
+# Find front foor access based on tracking ref
+AzureDiagnostics
+| where ResourceProvider == "MICROSOFT.NETWORK" and Category == "FrontdoorAccessLog" and trackingReference_s == "20231206T103616Z-bg7x7m27q90sbdyfydgy9dtqsg0000000afg00000000884d"
